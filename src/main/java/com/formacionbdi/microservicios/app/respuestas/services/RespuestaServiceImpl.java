@@ -2,6 +2,7 @@ package com.formacionbdi.microservicios.app.respuestas.services;
 
 
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,8 +50,14 @@ public class RespuestaServiceImpl implements RespuestaService {
 
 	@Override
 	public Iterable<Long> findExamenesIdsConRespuestasByAlumno(Long alumnoId) {
-
-		return null;
+		List<Respuesta> respuestasAlumno = (List<Respuesta>) repository.findByAlumnoId(alumnoId);
+		List<Long> examenIds = Collections.emptyList();
+		if(respuestasAlumno.size() > 0) {
+			List<Long> preguntaIds = respuestasAlumno.stream().map(r -> r.getPreguntaId()).collect(Collectors.toList());
+			examenIds = examenClient.obtenerExamenesIdsPorPreguntasIdRespondidas(preguntaIds);
+		}
+		
+		return examenIds;
 	}
 
 	@Override
