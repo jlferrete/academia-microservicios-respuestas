@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.formacionbdi.microservicios.app.respuestas.clients.ExamenFeignClient;
 import com.formacionbdi.microservicios.app.respuestas.models.entity.Respuesta;
 import com.formacionbdi.microservicios.app.respuestas.models.repository.RespuestaRepository;
 
@@ -14,6 +15,9 @@ public class RespuestaServiceImpl implements RespuestaService {
 
 	@Autowired
 	private RespuestaRepository repository;
+	
+	@Autowired
+	private ExamenFeignClient examenClient;
 	
 	@Override
 	@Transactional
